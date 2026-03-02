@@ -2,7 +2,7 @@
  * 后端 API 封装
  * 请将 BASE_URL 改为实际部署的后端地址
  */
-const BASE_URL = 'http://localhost:8000'
+const BASE_URL = 'http://115.159.59.201:8000'
 
 function request(method, url, data = {}) {
   return new Promise((resolve, reject) => {

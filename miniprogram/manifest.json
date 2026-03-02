@@ -6,11 +6,12 @@
     "versionCode" : "100",
     "vueVersion" : "3",
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wxb4583de0d3c76edc",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,
-            "minified" : true
+            "minified" : true,
+            "postcss" : true
         }
     },
     "mp-toutiao" : {
