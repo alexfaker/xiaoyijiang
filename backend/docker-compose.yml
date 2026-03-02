@@ -1,0 +1,22 @@
+# 换衣小程序后端 Docker Compose 部署
+# 使用: docker compose up -d
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: xiaoyijiang-backend:latest
+    container_name: xiaoyijiang-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
+    # 健康检查（slim 镜像无 curl，使用 Python）
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

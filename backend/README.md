@@ -43,6 +43,18 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 ---
 
+## Docker 部署（生产环境）
+
+使用 Docker 部署到远端服务器，详见 [DEPLOY.md](./DEPLOY.md)。
+
+```bash
+cd backend
+cp .env.example .env   # 填入 DASHSCOPE_API_KEY
+docker compose up -d
+```
+
+---
+
 ## 一键启动（已创建虚拟环境时）
 
 ```bash
