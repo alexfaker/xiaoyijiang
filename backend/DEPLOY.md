@@ -71,7 +71,9 @@ docker run -d \
 return 307 https://$host$request_uri;
 ```
 
-3. **推荐 Nginx 配置**（HTTPS 反向代理到后端 8000）：
+3. **本项目 Nginx 配置**：`backend/nginx/xiaoyijiang.conf` 已将 `drama.flashwave.cn/xiaoyijiang` 转发到 8000 端口。复制到 `/etc/nginx/conf.d/`，修改证书路径后执行 `nginx -t && systemctl reload nginx`。
+
+4. **通用 Nginx 配置示例**（HTTPS 反向代理到后端 8000）：
 
 ```nginx
 server {
@@ -91,4 +93,4 @@ server {
 }
 ```
 
-小程序端 `BASE_URL` 使用 `https://your-domain.com`，无需经过 HTTP 重定向。
+小程序端 `BASE_URL` 使用 `https://your-domain.com` 或 `https://drama.flashwave.cn/xiaoyijiang`，无需经过 HTTP 重定向。

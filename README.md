@@ -29,6 +29,16 @@ API 文档：http://localhost:8000/docs
 2. 在 `manifest.json` 中填写微信、抖音的 appid
 3. 将 `miniprogram/api/index.js` 中 `BASE_URL` 改为实际后端地址（开发时可用内网穿透暴露 8000 端口）
 
+### 体验版 / 正式版发布
+
+微信小程序体验版/正式版**强制校验**网络请求，开发者工具的「不校验合法域名」无效。需满足：
+
+- 使用 **HTTPS**（不能用 HTTP）
+- 使用 **已备案域名**（不能用 IP）
+- 在微信公众平台配置：开发 → 开发管理 → 服务器域名 → **request 合法域名**
+
+后端需通过 Nginx 等配置 HTTPS，详见 `backend/DEPLOY.md`。
+
 ## 依赖
 
 - 阿里云百炼 API Key（中国内地北京地域）

@@ -1,4 +1,5 @@
 """FastAPI 应用入口"""
+import os
 import logging
 from dotenv import load_dotenv
 
@@ -29,6 +30,7 @@ class RequestLogMiddleware(BaseHTTPMiddleware):
 app = FastAPI(
     title="换衣小程序后端",
     description="AI 虚拟试衣 API，支持模特图+服饰图合成",
+    root_path=os.getenv("ROOT_PATH", ""),  # 在 Nginx /xiaoyijiang 下部署时设置 ROOT_PATH=/xiaoyijiang
 )
 
 app.add_middleware(RequestLogMiddleware)

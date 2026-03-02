@@ -13,6 +13,7 @@ services:
       - "8000:8000"
     environment:
       - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
+      - ROOT_PATH=/xiaoyijiang
     # 健康检查（slim 镜像无 curl，使用 Python）
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"]

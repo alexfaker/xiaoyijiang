@@ -1,8 +1,8 @@
 /**
  * 后端 API 封装
- * 请将 BASE_URL 改为实际部署的后端地址
+ * 体验版/正式版必须：1) 使用 HTTPS  2) 使用已备案域名  3) 在微信公众平台配置 request 合法域名
  */
-const BASE_URL = 'http://115.159.59.201:8000'
+const BASE_URL = 'https://drama.flashwave.cn/xiaoyijiang'  // 通过 Nginx 转发到 8000 端口
 
 function request(method, url, data = {}) {
   return new Promise((resolve, reject) => {
