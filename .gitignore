@@ -1,0 +1,22 @@
+# 依赖与虚拟环境
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# 环境变量与密钥
+.env
+
+# 构建与打包产物
+dist/
+unpackage/
+*.log
+
+# 系统与 IDE
+.DS_Store
+*.swp
+*.swo
+
+# uni-app 编译输出
+miniprogram/unpackage/
