@@ -39,6 +39,10 @@ export function uploadImage(filePath) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           try {
             const data = JSON.parse(res.data)
+            if (data.diagnostic === 'GET_not_allowed') {
+              reject(new Error('上传请求被错误发成 GET，请检查网络/域名配置，或使用 HTTPS'))
+              return
+            }
             resolve(data.url)
           } catch (e) {
             reject(new Error('解析响应失败'))

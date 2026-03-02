@@ -50,4 +50,45 @@ docker run -d \
 部署后将 `miniprogram/api/index.js` 中 `BASE_URL` 改为：
 
 - 开发调试：内网穿透后的地址（如 ngrok、frp）
-- 正式发布：已备案域名的 HTTPS 地址（需在小程序后台配置 request 合法域名）
+- 正式发布：**必须使用 HTTPS**，并在小程序后台配置 request 合法域名
+
+## 常见问题：上传接口 405 Method Not Allowed
+
+**现象**：日志显示 `GET /api/upload/image 405`，但客户端调用的是 `uni.uploadFile`（应为 POST）。
+
+**原因**：HTTP 301/302 重定向会将 POST 转为 GET。若经过 Nginx 等反向代理，且将 HTTP 重定向到 HTTPS，就会出现此问题。
+
+**解决方案**：
+
+1. **优先方案**：`BASE_URL` 直接使用 HTTPS，避免重定向。
+2. **若必须重定向**：Nginx 使用 307/308（保留请求方法），例如：
+
+```nginx
+# 错误示例：301 会导致 POST 变 GET
+# return 301 https://$host$request_uri;
+
+# 正确：307 保留 POST 方法与 body
+return 307 https://$host$request_uri;
+```
+
+3. **推荐 Nginx 配置**（HTTPS 反向代理到后端 8000）：
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name your-domain.com;
+    ssl_certificate     /path/to/fullchain.pem;
+    ssl_certificate_key /path/to/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        client_max_body_size 10M;   # 上传图片需足够大
+    }
+}
+```
+
+小程序端 `BASE_URL` 使用 `https://your-domain.com`，无需经过 HTTP 重定向。
