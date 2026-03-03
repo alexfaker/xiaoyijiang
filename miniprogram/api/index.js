@@ -76,3 +76,12 @@ export function createTryon(personImageUrl, garmentImageUrl) {
 export function getTryonResult(taskId) {
   return request('GET', '/api/tryon/result', { task_id: taskId })
 }
+
+/**
+ * 获取经后端代理的图片 URL（HTTPS）
+ * 百炼可能返回 HTTP 链接，小程序要求 HTTPS；代理同时解决 downloadFile 合法域名限制
+ */
+export function getProxiedImageUrl(originalUrl) {
+  if (!originalUrl) return ''
+  return BASE_URL + '/api/image/proxy?url=' + encodeURIComponent(originalUrl)
+}

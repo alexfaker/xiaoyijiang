@@ -35,7 +35,9 @@ API 文档：http://localhost:8000/docs
 
 - 使用 **HTTPS**（不能用 HTTP）
 - 使用 **已备案域名**（不能用 IP）
-- 在微信公众平台配置：开发 → 开发管理 → 服务器域名 → **request 合法域名**
+- 在微信公众平台配置：开发 → 开发管理 → 服务器域名 →
+  - **request 合法域名**：后端 API 域名（如 drama.flashwave.cn）
+  - **downloadFile 合法域名**：同上（结果图经后端代理，百炼可能返回 HTTP 链接，代理转为 HTTPS 输出）
 
 后端需通过 Nginx 等配置 HTTPS，详见 `backend/DEPLOY.md`。
 

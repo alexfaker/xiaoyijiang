@@ -9,7 +9,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from app.routers import tryon, upload
+from app.routers import tryon, upload, image_proxy
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -44,6 +44,7 @@ app.add_middleware(
 
 app.include_router(upload.router)
 app.include_router(tryon.router)
+app.include_router(image_proxy.router)
 
 
 @app.get("/")

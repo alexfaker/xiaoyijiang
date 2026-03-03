@@ -1,10 +1,13 @@
 """图片上传路由"""
-from fastapi import APIRouter, File, HTTPException, UploadFile
+import logging
+
+from fastapi import APIRouter, HTTPException, Request
 
 from app.schemas.models import UploadResponse
 from app.services.oss_upload import upload_file_from_upload
 
 router = APIRouter(prefix="/api/upload", tags=["upload"])
+logger = logging.getLogger(__name__)
 
 
 @router.get("/image")

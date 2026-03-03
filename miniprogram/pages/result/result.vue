@@ -17,7 +17,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getTryonResult } from '../../api/index'
+import { getTryonResult, getProxiedImageUrl } from '../../api/index'
 
 const taskId = ref('')
 const status = ref('PENDING')
@@ -37,7 +37,7 @@ async function poll() {
     const res = await getTryonResult(taskId.value)
     status.value = res.status
     if (res.status === 'SUCCEEDED') {
-      resultUrl.value = res.result_image_url || ''
+      resultUrl.value = getProxiedImageUrl(res.result_image_url) || ''
       return
     }
     if (res.status === 'FAILED') {
