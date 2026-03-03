@@ -35,6 +35,7 @@ export function uploadImage(filePath) {
       url: BASE_URL + '/api/upload/image',
       filePath,
       name: 'file',
+      formData: {},  // 部分平台需显式传入以正确构造 multipart
       success: (res) => {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           try {

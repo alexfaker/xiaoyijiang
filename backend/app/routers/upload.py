@@ -20,8 +20,8 @@ def upload_image_get():
 
 
 @router.post("/image", response_model=UploadResponse)
-async def upload_image(file: UploadFile = File(...)):
-    """上传图片至百炼临时存储，返回 oss:// URL"""
+async def upload_image(file: UploadFile = File(..., description="图片文件，form 字段名需为 file")):
+    """上传图片至百炼临时存储，返回 oss:// URL。客户端需使用 multipart/form-data，字段名 file。"""
     if not file.content_type or not file.content_type.startswith("image/"):
         raise HTTPException(400, "请上传图片文件")
 
